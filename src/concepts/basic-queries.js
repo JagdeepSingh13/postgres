@@ -50,4 +50,30 @@ async function fetchAllUsers() {
   }
 }
 
-module.exports = { createUsersTable, insertUsers, fetchAllUsers };
+async function UpdateUserEmail(username, newEmail) {
+  const updateUserQuery = `
+  UPDATE users
+  SET email = $2
+  WHERE username = $1
+  RETURNING *
+  `;
+
+  try {
+    const res = await db.query(updateUserQuery, [username, newEmail]);
+    if (res.rows.length > 0) {
+      console.log("user updated successfully", res.rows[0]);
+      return res.rows[0];
+    } else {
+      console.log("no user found with this username");
+    }
+  } catch (error) {
+    console.error("Error while updating email from users table");
+  }
+}
+
+module.exports = {
+  createUsersTable,
+  insertUsers,
+  fetchAllUsers,
+  UpdateUserEmail,
+};
