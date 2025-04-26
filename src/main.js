@@ -1,4 +1,8 @@
-const { createUsersTable, insertUsers } = require("./concepts/basic-queries");
+const {
+  createUsersTable,
+  insertUsers,
+  fetchAllUsers,
+} = require("./concepts/basic-queries");
 
 // test basic queries
 async function testBasicQueries() {
@@ -8,6 +12,9 @@ async function testBasicQueries() {
     // await insertUsers("JSingh", "j@j.com");
     // await insertUsers("JSingh2", "j@k.com");
     // await insertUsers("JSingh3", "j@l.com");
+
+    const allUsers = await fetchAllUsers();
+    console.log(allUsers);
   } catch (error) {
     console.error("Error", error);
   }

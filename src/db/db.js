@@ -15,6 +15,8 @@ async function query(text, params) {
     // execution time
     const duration = Date.now() - start;
     console.log(`Executed query: ${{ text, duration, rows: result.rowCount }}`);
+
+    return result;
   } catch (e) {
     console.log("duration time error", e);
     throw e;
