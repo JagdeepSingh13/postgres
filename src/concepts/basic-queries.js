@@ -71,9 +71,30 @@ async function UpdateUserEmail(username, newEmail) {
   }
 }
 
+async function deleteUserInfo(username) {
+  const deleteQuery = `
+  DELETE FROM users
+  WHERE username = $1
+  RETURNING *
+  `;
+
+  try {
+    const res = await db.query(deleteQuery, [username]);
+    if (res.rows.length > 0) {
+      console.log("user deleted successfully", res.rows[0]);
+      return res.rows[0];
+    } else {
+      console.log("no user found with this username");
+    }
+  } catch (error) {
+    console.error("Error while deleting from users table");
+  }
+}
+
 module.exports = {
   createUsersTable,
   insertUsers,
   fetchAllUsers,
   UpdateUserEmail,
+  deleteUserInfo,
 };
