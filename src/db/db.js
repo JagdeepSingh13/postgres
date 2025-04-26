@@ -1,3 +1,4 @@
+require("dotenv").config();
 const { Pool } = require("pg");
 
 // create new pool instance to manage db connections
@@ -15,7 +16,7 @@ async function query(text, params) {
     const duration = Date.now() - start;
     console.log(`Executed query: ${{ text, duration, rows: result.rowCount }}`);
   } catch (e) {
-    console.log(e);
+    console.log("duration time error", e);
     throw e;
   }
 }
